@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SliderSwitcherViewController: UIViewController {
+class SliderSwitcherViewController: UIViewController, UITextFieldDelegate {
 
     
     // MARK: Outlets
@@ -37,6 +37,7 @@ class SliderSwitcherViewController: UIViewController {
    //Target-Action method (?)
     //Adjusts slider based on user input. Checks to see if input is a number, then checks to see if the number falls within the slider range
     //If both checks pass, the number passed as input automatically updates the position/value of the slider as well as the value of the stepper
+    //Could have used a delegate method instead (?)
     @IBAction func userInputToAdjustSlider(_ sender: AnyObject) {
         if let userInput = Float(sender.text!) {
             self.slider.value = userInput
@@ -59,6 +60,7 @@ class SliderSwitcherViewController: UIViewController {
         label.text = String(Int(slider.value))
         stepper.minimumValue = Double(slider.minimumValue)
         stepper.maximumValue = Double(slider.maximumValue)
+        userInputForSliderAdjustment.delegate = self
         super.viewDidLoad()
    
     }
