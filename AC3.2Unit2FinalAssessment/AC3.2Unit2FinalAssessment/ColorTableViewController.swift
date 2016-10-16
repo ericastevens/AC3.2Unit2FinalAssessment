@@ -10,7 +10,6 @@ import UIKit
 
 class ColorTableViewController: UITableViewController {
 
-//2 tasks left to complete: Segue from colors to detail view & use input to adjust slider
     var crayons: [Crayon] = []
     
     let cellIdentifier = "crayonCell"
@@ -20,11 +19,11 @@ class ColorTableViewController: UITableViewController {
         super.viewDidLoad()
 
         for c in crayolaColors {
-            if let crayon = Crayon(fromDict: c) {
+            //Initialized with the extra credit init
+            if let crayon = Crayon(dict: c) {
                 crayons.append(crayon)
             }
         }
-        //print(crayons["name"])
     }
 
 
@@ -50,6 +49,10 @@ class ColorTableViewController: UITableViewController {
          //Configure the cell...
         cell.textLabel?.text = color.name
         cell.backgroundColor = UIColor(colorLiteralRed: Float(color.red), green: Float(color.green), blue: Float(color.blue), alpha: 1)
+        
+        if color.name == "Black" {
+            cell.textLabel?.textColor = UIColor.white
+        }
 
         return cell
     }
@@ -67,17 +70,14 @@ class ColorTableViewController: UITableViewController {
                 let path = tableView.indexPathForSelectedRow
                 let cell = tableView.cellForRow(at: path!)
                 destination.viaSegue = (cell?.textLabel?.text!)!
+                let color = crayons[(path?.row)!]
+                destination.view.backgroundColor = UIColor(colorLiteralRed: Float(color.red), green: Float(color.green), blue: Float(color.blue), alpha: 1.0)
+                destination.colorName.text = color.name
+                if color.name == "Black" {
+                    destination.colorName.textColor = UIColor.white
+                }
             }
         }
-    }
-    
-    //https://www.codebeaulieu.com/29/prepareForSegue
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        _ = tableView.indexPathForSelectedRow!
-        if let _ = tableView.cellForRow(at: indexPath as IndexPath) {
-            self.performSegue(withIdentifier: crayonSegueIdentifier, sender: self)
-        }
-        
     }
     
 

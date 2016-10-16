@@ -56,4 +56,33 @@ class Crayon {
             return nil
         }
     }
+    
+    //EXTRA CREDIT CONVENIENCE INIT
+    convenience init?(dict:[String:Any]) {
+        var rgbComponentsArr = [String]()
+        if let rgb = dict["rgb"] as? String {
+            
+            
+            
+            //Isolate components & append values to rgbComponentsArr
+            rgbComponentsArr = rgb.components(separatedBy: ",")
+            
+            //remove punctuation
+            rgbComponentsArr[0].remove(at: rgbComponentsArr[0].startIndex)
+            rgbComponentsArr[1].remove(at: rgbComponentsArr[1].startIndex)
+            rgbComponentsArr[2].remove(at: rgbComponentsArr[2].startIndex)
+            rgbComponentsArr[2].remove(at: rgbComponentsArr[2].index(before: rgbComponentsArr[2].endIndex))
+            
+            
+            
+        }
+        //Convert string to doubles & assign components to constants
+        if let red = Double(rgbComponentsArr[0]), let green = Double(rgbComponentsArr[1]), let blue = Double(rgbComponentsArr[2]), let name = dict["name"] as? String  {
+            self.init(name: name, red: red/255.0, green: green/255.0, blue: blue/255.0)
+        }
+        else {
+            return nil
+        }
+        
+    }
 }

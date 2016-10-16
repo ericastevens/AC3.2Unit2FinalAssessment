@@ -12,6 +12,8 @@ class CrayonViewController: UIViewController {
     
     var viaSegue = ""
 
+    @IBOutlet weak var colorName: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
